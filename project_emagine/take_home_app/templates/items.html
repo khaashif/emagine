@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Items</title>
+  </head>
+  <body>
+    <h2>Items</h2>
+  </div>
+    <table id="items-table" border="1">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Price (£)</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in user_items %}
+        <tr>
+          <td>{{ item.name }}</td>
+          <td>{{ item.price }}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+          <td contenteditable="true" id="new-item-name"></td>
+          <td contenteditable="true" id="new-item-price"></td>
+          <td><button onclick="addItem()">+</button></td>
+        </tr>
+      </tbody>
+    </table>
+    <button id="sum-btn" onclick="calculateSum()">Summary</button>
+</div>
+<div id="sum-result" style="display: none;">
+    <p>Total Cost: £<span id="total-cost"></span></p>
+    <button onclick="showTable()">Back</button>
+</div>
+    <script>
+      function addItem() {
+        var itemName = document.getElementById("new-item-name").innerText;
+        var itemPrice = document.getElementById("new-item-price").innerText;
+
+        // Validate that both name and price are provided
+        if (itemName.trim() && itemPrice.trim()) {
+          // Send a request to the server to add the new item
+          fetch('{% url "add_item" %}', {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "X-CSRFToken": "{{ csrf_token }}",
+            },
+            body: JSON.stringify({
+              name: itemName,
+              price: itemPrice,
+            }),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              // Check if the item was added successfully
+              if (data.success) {
+                // Reload the page to reflect the changes
+                window.location.reload();
+              } else {
+                alert("Failed to add the item. Please try again.");
+              }
+            });
+        } else {
+          alert("Please provide both item name and price.");
+        }
+      }
+    </script>
+
+    <script>
+        function calculateSum() {
+            fetch('{% url "calculate_sum" %}')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.total_cost !== undefined) {
+                        document.getElementById('total-cost').innerText = data.total_cost;
+                        document.getElementById('items-table').style.display = 'none';
+                        document.getElementById('sum-btn').style.display = 'none';
+                        document.getElementById('sum-result').style.display = 'block';
+                    } else {
+                        alert('Failed to calculate the sum. Please try again.');
+                    }
+                });
+        }
+
+        function showTable() {
+            document.getElementById('items-table').style.display = '';
+            document.getElementById('sum-btn').style.display = '';
+            document.getElementById('sum-result').style.display = 'none';
+        }
+
+    </script>
+  </body>
+</html>
