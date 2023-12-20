@@ -26,8 +26,7 @@ SECRET_KEY = "django-insecure-ia4crxl0c-f@ylleblsj1xv=6l54qd13(i7f&p23rmka2iao)s
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["emagine-app.azurewebsites.net"]
-
+ALLOWED_HOSTS = [os.environ['WEBSITE_HOSTNAME']] if 'WEBSITE_HOSTNAME' in os.environ else []
 
 # Application definition
 
@@ -72,7 +71,15 @@ TEMPLATES = [
 WSGI_APPLICATION = "project_emagine.wsgi.application"
 
 
+SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
+
+CSRF_TRUSTED_ORIGINS = ['https://emagine-app.azurewebsites.net']
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+USE_X_FORWARDED_HOST = True
+USE_X_FORWARDED_PORT = True
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
