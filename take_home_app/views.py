@@ -8,6 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 from .models import Item
 from django.contrib.auth.decorators import login_required
 import json
+from django.views.decorators.cache import never_cache
 
 def login_view(request):
     if request.method == 'POST':
@@ -37,6 +38,7 @@ def sign_up_view(request):
 from django.contrib.auth.models import User
 
 @login_required
+@never_cache
 def items(request):
     # Get the user instance from the request
     user_instance = request.user
@@ -48,6 +50,7 @@ def items(request):
 
 @csrf_exempt
 @login_required
+@never_cache
 def add_item(request):
     if request.method == 'POST':
         data = json.loads(request.body.decode('utf-8'))
