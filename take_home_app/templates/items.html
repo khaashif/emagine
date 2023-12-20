@@ -48,9 +48,9 @@
         var itemName = document.getElementById("new-item-name").innerText;
         var itemPrice = document.getElementById("new-item-price").innerText;
 
-        // Validate that both name and price are provided
+        // validate that both name and price are provided
         if (itemName.trim() && itemPrice.trim()) {
-          // Send a request to the server to add the new item
+          // send a request to the backend to add the new item
           fetch('{% url "add_item" %}', {
             method: "POST",
             headers: {
@@ -64,9 +64,9 @@
           })
             .then((response) => response.json())
             .then((data) => {
-              // Check if the item was added successfully
+              // check if the item was added successfully
               if (data.success) {
-                // Reload the page to reflect the changes
+                // reload the page to reflect the changes
                 window.location.reload();
               } else {
                 alert("Failed to add the item. Please try again.");
@@ -80,10 +80,12 @@
 
     <script>
       function calculateSum() {
+        // make a post request to the backend to calculate the sum of user's items
         fetch('{% url "calculate_sum" %}')
           .then((response) => response.json())
           .then((data) => {
             if (data.total_cost !== undefined) {
+              // update total cost element with calculation from the backend
               document.getElementById("total-cost").innerText = data.total_cost;
               toggleView();
             } else {
