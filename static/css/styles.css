@@ -1,0 +1,25 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh; /* 100% of the viewport height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #5f62f1; /* Optional background color */
+  }
+  
+  .container {
+    /* Optional container styles */
+    background-color: #ffffff;
+    text-align: center;
+    max-width: 70%; /* Adjust as needed */
+    width: 100%;
+  }
+
+  .sub{
+    background-color: #ffffff;
+    color: #ff8800;
+    border-radius: 10px;
+    border:solid black 1px;
+  }
+  

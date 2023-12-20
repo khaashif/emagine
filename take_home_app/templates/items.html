@@ -1,38 +1,48 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
   <head>
     <title>Items</title>
+    <link rel="stylesheet" href="{% static 'css/items.css' %}" />
   </head>
   <body>
-    <h2>Items</h2>
-  </div>
-    <table id="items-table" border="1">
-      <thead>
-        <tr>
-          <th>Item</th>
-          <th>Price (£)</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for item in user_items %}
-        <tr>
-          <td>{{ item.name }}</td>
-          <td>{{ item.price }}</td>
-        </tr>
-        {% endfor %}
-        <tr>
-          <td contenteditable="true" id="new-item-name"></td>
-          <td contenteditable="true" id="new-item-price"></td>
-          <td><button onclick="addItem()">+</button></td>
-        </tr>
-      </tbody>
-    </table>
-    <button id="sum-btn" onclick="calculateSum()">Summary</button>
-</div>
-<div id="sum-result" style="display: none;">
-    <p>Total Cost: £<span id="total-cost"></span></p>
-    <button onclick="showTable()">Back</button>
-</div>
+    <div class="container">
+      <div class="table-container">
+        Add your items into the table by typing the item and price values into
+        the bottom row and pressing the add button when you're done.
+        <br />
+        <br />
+        <table id="items-table" border="1">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Price (£)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in user_items %}
+            <tr>
+              <td>{{ item.name }}</td>
+              <td>{{ item.price }}</td>
+            </tr>
+            {% endfor %}
+            <tr>
+              <td contenteditable="true" id="new-item-name"></td>
+              <td contenteditable="true" id="new-item-price"></td>
+              <td><button onclick="addItem()">+</button></td>
+            </tr>
+          </tbody>
+        </table>
+        <button class="summary" id="sum-btn" onclick="calculateSum()">
+          Summary
+        </button>
+      </div>
+
+      <div class="result-container hidden" id="sum-result">
+        <p>Total Cost: £<span id="total-cost"></span></p>
+        <button class="back" onclick="toggleView()">Back</button>
+      </div>
+    </div>
     <script>
       function addItem() {
         var itemName = document.getElementById("new-item-name").innerText;
@@ -69,27 +79,23 @@
     </script>
 
     <script>
-        function calculateSum() {
-            fetch('{% url "calculate_sum" %}')
-                .then(response => response.json())
-                .then(data => {
-                    if (data.total_cost !== undefined) {
-                        document.getElementById('total-cost').innerText = data.total_cost;
-                        document.getElementById('items-table').style.display = 'none';
-                        document.getElementById('sum-btn').style.display = 'none';
-                        document.getElementById('sum-result').style.display = 'block';
-                    } else {
-                        alert('Failed to calculate the sum. Please try again.');
-                    }
-                });
-        }
+      function calculateSum() {
+        fetch('{% url "calculate_sum" %}')
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.total_cost !== undefined) {
+              document.getElementById("total-cost").innerText = data.total_cost;
+              toggleView();
+            } else {
+              alert("Failed to calculate the sum. Please try again.");
+            }
+          });
+      }
 
-        function showTable() {
-            document.getElementById('items-table').style.display = '';
-            document.getElementById('sum-btn').style.display = '';
-            document.getElementById('sum-result').style.display = 'none';
-        }
-
+      function toggleView() {
+        document.querySelector(".table-container").classList.toggle("hidden");
+        document.querySelector(".result-container").classList.toggle("hidden");
+      }
     </script>
   </body>
 </html>

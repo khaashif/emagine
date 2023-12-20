@@ -1,14 +1,19 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
   <head>
     <title>Signup</title>
+    <link rel="stylesheet" href="{% static 'css/sign_up.css' %}?v=1" />
   </head>
   <body>
-    <h2>Signup</h2>
-    <form method="post" action="{% url 'signup' %}">
-      {% csrf_token %} {{ form.as_p }}
-      <button type="submit">Signup</button>
-    </form>
-    <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+    <div class="container">
+      <button class="login" onclick="window.location.href='{% url 'login' %}'">
+        Log In
+      </button>
+      <form method="post" action="{% url 'signup' %}">
+        {% csrf_token %} {{ form.as_p }}
+        <button class="signup" type="submit">Sign Up</button>
+      </form>
+    </div>
   </body>
 </html>
