@@ -1,0 +1,14 @@
+az webapp up --sku F1 -n emagine-app --resource-group sandbox --subscription 3cba5572-3747-4f15-92d3-0e300109a033
+az webapp deployment source config-local-git 
+git remote add dev https://khaash1@emagine-app.scm.azurewebsites.net/emagine-app.git
+git push dev main
+az webapp deployment list-publishing-credentials --name emagine-app --resource-group sandbox --subscription 3cba5572-3747-4f15-92d3-0e300109a033 --query scmUri
+h0e4lnKCwaEqMAH8XrXxZE1tugfSyDDtKfpBceQ6tnhbQFh6hpcjhavXCZ5a
+
+git remote set-url origin https://$emagine-app:h0e4lnKCwaEqMAH8XrXxZE1tugfSyDDtKfpBceQ6tnhbQFh6hpcjhavXCZ5a@emagine-app.scm.azurewebsites.net
+git remote add dev https://$emagine-app:h0e4lnKCwaEqMAH8XrXxZE1tugfSyDDtKfpBceQ6tnhbQFh6hpcjhavXCZ5a@emagine-app.scm.azurewebsites.net
+
+git remote set-url dev https://$emagine-app:h0e4lnKCwaEqMAH8XrXxZE1tugfSyDDtKfpBceQ6tnhbQFh6hpcjhavXCZ5a@emagine-app.scm.azurewebsites.net
+
+
+git push https://khaash1:BananasLaptops12!@emagine-app.scm.azurewebsites.net/emagine-app.git main:master
