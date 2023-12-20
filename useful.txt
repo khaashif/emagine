@@ -1,4 +1,4 @@
-az webapp up --sku F1 -n emagine-app --resource-group sandbox --subscription 3cba5572-3747-4f15-92d3-0e300109a033
+az webapp up --sku F1 -n emagine-web-app --resource-group sandbox-uk --subscription 3cba5572-3747-4f15-92d3-0e300109a033 --location "UK South"
 az webapp deployment source config-local-git 
 git remote add dev https://khaash1@emagine-app.scm.azurewebsites.net/emagine-app.git
 git push dev main
