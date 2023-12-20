@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-ia4crxl0c-f@ylleblsj1xv=6l54qd13(i7f&p23rmka2iao)s"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["emagine-app.azurewebsites.net"]
 
@@ -71,6 +71,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "project_emagine.wsgi.application"
 
+
+CSRF_COOKIE_SECURE = True
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
