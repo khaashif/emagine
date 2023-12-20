@@ -12,3 +12,6 @@ git remote set-url dev https://$emagine-app:h0e4lnKCwaEqMAH8XrXxZE1tugfSyDDtKfpB
 
 
 git push https://khaash1:BananasLaptops12!@emagine-app.scm.azurewebsites.net/emagine-app.git main:master
+
+
+emagine-app.scm.azurewebsites.net
