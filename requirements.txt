@@ -1,1 +1,3 @@
 django
+
+git remote add azure http://emagine-app.azurewebsites.net
