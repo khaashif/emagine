@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-ia4crxl0c-f@ylleblsj1xv=6l54qd13(i7f&p23rmka2iao)s"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["emagine-app.azurewebsites.net"]
 
 
 # Application definition
